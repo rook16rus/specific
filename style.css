@@ -1,0 +1,55 @@
+.pagewrapper {
+    font-size: 21px;
+}
+
+/* У селектора .content специфичность выше чем у .pagewrapper, так как чем ниже стилевое правило, тем оно важнее */
+
+.content {
+    font-size: 25px;
+}
+
+/* Теперь, если мы зададим размер шрифта через селектор id #content, то размер текста элемента .content изменится,
+так как селектор id выше, чем селектор класса */
+
+#content {
+    font-size: 17px;
+}
+
+/* Вложенные селекторы тега и класса, независимо от их количества, не изменят ситуацию, т.к. селекторы id на уровень,
+выше */
+
+.pagewrapper > div  {
+    font-size: 40px;
+}
+
+/* Но если мы укажем стилевое правило, находящееся ниже селектора #content, то ситуация изменится */
+
+.pagewrapper > div > p {
+    font-size: 8px;
+}
+
+#pagewrapper > .content > p {  /* Приоритет: 0111 */
+    font-size: 10px;
+}
+
+#pagewrapper > .content > .paragraph { /* Приоритет: 0120 */
+    font-size: 12px;
+}
+
+#pagewrapper > #content > .paragraph { /* Приоритет: 0210 */
+    font-size: 14px;
+}
+
+#pagewrapper > #content > #paragraph { /* Приоритет: 0300 - выиграет гонку специфичности, если не задать атрибут */
+    font-size: 16px;                  /* style для элемента в html*/
+}
+
+.paragraph {
+    font-size: 200px !important; /* Приоритет: over 999999. Ему плевать на ваши гонки, он уже на финише */
+}
+
+.content {
+    font-size: 2px;  /* Перекроет селектор .content выше по правилам каскадности */
+}
+
+/* ATTRIBUTE STYLE > ID > CLASS > TAG */
